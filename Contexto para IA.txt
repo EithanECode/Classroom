@@ -1,0 +1,156 @@
+Contexto del Proyecto: Plataforma Educativa "Classroom"
+Este documento proporciona un contexto completo para el desarrollo de una
+plataforma educativa en línea, tipo "Classroom". La IA debe utilizar esta información
+como base para todas las solicitudes de código y diseño futuras, asegurando
+coherencia y alineación con la visión del proyecto.
+
+1. Visión General del Proyecto
+Propósito: Crear una plataforma educativa digital que facilite la interacción y el aprendizaje
+entre estudiantes y profesores, con una gestión centralizada por parte de los
+administradores.
+Objetivo Principal: Ofrecer un entorno organizado, seguro y fácil de usar para la entrega y
+consumo de contenido educativo, la comunicación y la gestión de usuarios/cursos.
+
+2. Perfiles de Usuario
+El sistema contempla tres perfiles de usuario principales:
+●​ Estudiante: Consume contenido, realiza tareas, ve calificaciones, participa en
+
+chats (salón y privado con profesor).
+●​ Profesor: Crea y gestiona cursos, sube materiales (videos, documentos, PDFs),
+asigna y califica tareas, imparte clases en vivo, gestiona estudiantes, participa en
+chats (salón y privado con estudiante).
+●​ Administrador (Programadores): Gestión completa (CRUD) de usuarios y
+cursos, configuración de materias, asignación de roles y co-profesores,
+monitoreo general.
+
+3. Pila Tecnológica (Tech Stack)
+Hemos definido la siguiente combinación de tecnologías como la "mejor práctica"
+para este proyecto:
+●​ Frontend: Next.js (con React)
+○​ Estilizado: Tailwind CSS
+○​ Iconos: Heroicons
+○​ Filosofía de Diseño: Estética HeroUI (diseño limpio, moderno, con espacios
+
+generosos, tipografía clara, similar a los ejemplos en https://www.heroui.com/).
+●​ Backend: Django (Python)
+○​ Manejará toda la lógica de negocio, autenticación, autorización, APIs RESTful
+y funcionalidades en tiempo real (con Django Channels).
+●​ Base de Datos: PostgreSQL
+○​ Será la base de datos principal para almacenar todos los datos estructurados.
+Para producción, se utilizarán servicios administrados en la nube (ej. Google
+
+Cloud SQL, Amazon RDS).
+●​ Almacenamiento de Archivos: Servicios en la nube (ej. Google Cloud Storage /
+Amazon S3)
+○​ Para almacenar videos, PDFs, documentos, y otras cargas de archivos.
+
+4. Paleta de Colores Principal
+Los colores de la universidad que se utilizarán para toda la interfaz son:
+●​ Blanco
+●​ Azul Principal: (o un azul vibrante similar)
+●​ Amarillo Acento: (o un amarillo brillante similar)
+
+5. Requisitos Funcionales Clave (MVP)
+A continuación, un resumen de las funcionalidades principales que el sistema debe
+soportar en su primera versión:
+●​ General: Registro, Login, Gestión de Perfiles, Dashboards personalizados.
+●​ Estudiante:
+○​ Ver cursos inscritos.
+○​ Acceder a materiales del curso (videos, documentos, PDFs, libros).
+○​ Ver y entregar tareas.
+○​ Ver calificaciones y retroalimentación.
+○​ Acceder a clases online (vía enlace externo) y grabadas.
+○​ Chat del Salón (grupal por curso).
+○​ Chat Privado con Profesor.
+●​ Profesor:
+○​ Crear y gestionar cursos y unidades/clases.
+○​ Subir y gestionar materiales (videos, documentos, PDFs, libros).
+○​ Crear y gestionar tareas.
+○​ Calificar tareas y dar retroalimentación.
+○​ Gestionar estudiantes en sus cursos.
+○​ Integración para clases online (en vivo).
+○​ Chat del Salón (moderación).
+○​ Chat Privado con Estudiante.
+○​ Asignación de co-profesores.
+○​ Integración Directa con YouTube para subir videos.
+●​ Administrador:
+○​ Gestión completa (CRUD) de usuarios (Estudiantes, Profesores) y cursos.
+○​ Configuración de materias.
+○​ Asignación de roles y múltiples docentes por materia.
+
+○​ Gestión de inscripciones (por código/enlace o manual).
+
+6. Requisitos No Funcionales Clave (MVP)
+●​ Seguridad: Autenticación robusta, cierre de sesión automático, control de
+
+acceso basado en roles, protección de datos.
+●​ Usabilidad: Interfaz intuitiva, diseño responsive.
+●​ Rendimiento: Tiempos de carga rápidos, manejo de concurrencia.
+●​ Escalabilidad y Fiabilidad.
+●​ Integración: Plataformas de video (enlaces externos), gestión de archivos.
+●​ Estadísticas y Seguimiento: Contador de tiempo de actividad, registro
+semi-automático de asistencia a clases online.
+●​ Notificaciones sofisticadas: Sistema de notificaciones para eventos relevantes.
+●​ Estadísticas detalladas y dashboards de análisis para profesores y
+administradores.
+
+7. Diseño de la Base de Datos (Esquema Conceptual)
+Las tablas principales incluirán:
+●​ Usuarios (id, nombre_completo, email, contrasena_hash, rol, cedula,
+
+fecha_registro, ultima_actividad, esta_activo)
+●​ Cursos (id, nombre_curso, descripcion, codigo_inscripcion, duracion_meses,
+fecha_creacion, esta_activo)
+●​ Profesores_Cursos (id, profesor_id, curso_id)
+●​ Inscripciones (id, estudiante_id, curso_id, fecha_inscripcion, estado_inscripcion)
+●​ Clases_Unidades (id, curso_id, nombre_clase, descripcion, tipo_contenido,
+url_material, fecha_publicacion, profesor_id)
+●​ Tareas (id, clase_unidad_id, curso_id, nombre_tarea, descripcion,
+fecha_asignacion, fecha_entrega, puntuacion_maxima, profesor_id)
+●​ Entregas_Tareas (id, tarea_id, estudiante_id, url_archivo_entrega, fecha_entrega,
+calificacion, retroalimentacion, fecha_calificacion)
+●​ Mensajes_Chat (id, curso_id, remitente_id, mensaje, fecha_envio)
+●​ Mensajes_Privados (id, remitente_id, destinatario_id, mensaje, fecha_envio) - Nueva
+tabla para chat privado.
+●​ Asistencia_Clases (id, clase_unidad_id, estudiante_id, fecha_hora_confirmacion,
+confirmado_por_profesor, confirmado_por_estudiante)
+●​ Notificaciones (id, usuario_id, tipo_notificacion, mensaje, url_destino,
+fecha_creacion, leida)
+●​ Estadisticas_Actividad (id, usuario_id, fecha_hora, tipo_evento, duracion_segundos,
+curso_id, detalles)
+
+8. Páginas de UI Diseñadas (Estudiante)
+Hasta ahora, hemos detallado los prompts para las siguientes páginas del dashboard
+del estudiante:
+●​ Dashboard Principal del Estudiante: Vista general con resúmenes de cursos,
+
+tareas, etc.
+●​ Página "Mis Cursos": Lista detallada de todos los cursos inscritos.
+●​ Página "Mi Calendario": Calendario interactivo con horarios de clases y eventos
+de tareas, incluyendo profesores.
+●​ Página "Mis Tareas": Lista organizada de todas las tareas con su estado y
+acciones.
+●​ Página "Mis Calificaciones": Vista detallada de calificaciones por tarea y curso,
+con promedios y retroalimentación.
+
+9. Expectativas para la IA (Cursor)
+Cuando se te solicite generar código o realizar una tarea, por favor:
+●​ Contexto Completo: Ten en cuenta toda la información proporcionada en este
+
+documento.
+●​ Pila Tecnológica: Genera código que sea compatible con Next.js (React),
+Tailwind CSS, Heroicons y que asuma un backend Django/PostgreSQL.
+●​ Estilo HeroUI: Asegúrate de que el diseño visual siga la estética limpia y moderna
+de HeroUI.
+●​ Colores: Utiliza la paleta de colores (Blanco, Azul Principal, Amarillo Acento) de
+manera consistente.
+●​ Responsive: El código UI debe ser completamente responsive.
+●​ Datos de Ejemplo (Mock Data): Incluye datos de ejemplo relevantes para que la
+UI se renderice correctamente y muestre la funcionalidad.
+●​ Modularidad: Genera componentes modulares y reutilizables cuando sea
+apropiado.
+●​ Comentarios: Incluye comentarios claros en el código.
+Este prompt es tu "manual de operaciones" para la IA. Utilízalo como referencia
+constante.
+
+
