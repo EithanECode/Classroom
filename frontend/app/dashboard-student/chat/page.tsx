@@ -153,20 +153,26 @@ const sidebarItems: SidebarItem[] = [
 export default function StudentChatPage() {
     const [activeChatId, setActiveChatId] = useState(1);
     const [message, setMessage] = useState("");
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const activeChat = chatList.find((chat) => chat.id === activeChatId);
     const messages: ChatMessage[] = chatMessages[activeChatId] || [];
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navbar studentName="Estudiante" sidebarOpen={false} setSidebarOpen={() => { }} hideGreetingOnMobile />
+            <Navbar studentName="Estudiante" sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
             <div className="flex">
                 {/* Sidebar para desktop */}
                 <div className="hidden md:block md:relative z-30 w-64 bg-white shadow-lg h-screen border-r border-gray-200">
                     <Sidebar items={sidebarItems} />
                 </div>
-                {/* Sidebar para mobile (panel deslizante) */}
-                {/* No sidebarOpen en chat, pero puedes agregar lógica si lo deseas */}
+                {/* Sidebar para mobile (panel deslizante animado) */}
+                <div className={`fixed inset-0 z-20 md:hidden transition-opacity duration-300 ${sidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+                    onClick={() => setSidebarOpen(false)}
+                />
+                <div className={`fixed top-0 left-0 z-30 w-64 h-full bg-white shadow-lg border-r border-gray-200 transition-transform duration-300 ease-in-out md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                    <Sidebar items={sidebarItems} />
+                </div>
                 {/* Main Content */}
                 <main className="flex-1 flex flex-col md:flex-row p-0 md:p-8">
                     {/* Panel Izquierdo: Lista de Chats */}

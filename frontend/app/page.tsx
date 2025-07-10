@@ -204,26 +204,24 @@ export default function StudentDashboard() {
                         }))}
                     />
                 </div>
-                {/* Sidebar para mobile (panel deslizante) */}
-                {sidebarOpen && (
-                    <>
-                        <div className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden" onClick={() => setSidebarOpen(false)} />
-                        <div className="fixed top-0 left-0 z-30 w-64 h-full bg-white shadow-lg border-r border-gray-200 transition-transform duration-300 md:hidden">
-                            <Sidebar
-                                items={sidebarItems.map(item => ({
-                                    ...item,
-                                    href: item.name === 'Dashboard' ? '/' :
-                                        item.name === 'Mis Cursos' ? '/dashboard-student/courses' :
-                                            item.name === 'Calendario' ? '/dashboard-student/calendar' :
-                                                item.name === 'Tareas' ? '/dashboard-student/assignments' :
-                                                    item.name === 'Calificaciones' ? '/dashboard-student/grades' :
-                                                        item.name === 'Chat' ? '/dashboard-student/chat' :
-                                                            item.name === 'Configuración' ? '/configuracion' : '#'
-                                }))}
-                            />
-                        </div>
-                    </>
-                )}
+                {/* Sidebar para mobile (panel deslizante animado) */}
+                <div className={`fixed inset-0 z-20 md:hidden transition-opacity duration-300 ${sidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+                    onClick={() => setSidebarOpen(false)}
+                />
+                <div className={`fixed top-0 left-0 z-30 w-64 h-full bg-white shadow-lg border-r border-gray-200 transition-transform duration-300 ease-in-out md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                    <Sidebar
+                        items={sidebarItems.map(item => ({
+                            ...item,
+                            href: item.name === 'Dashboard' ? '/' :
+                                item.name === 'Mis Cursos' ? '/dashboard-student/courses' :
+                                    item.name === 'Calendario' ? '/dashboard-student/calendar' :
+                                        item.name === 'Tareas' ? '/dashboard-student/assignments' :
+                                            item.name === 'Calificaciones' ? '/dashboard-student/grades' :
+                                                item.name === 'Chat' ? '/dashboard-student/chat' :
+                                                    item.name === 'Configuración' ? '/configuracion' : '#'
+                        }))}
+                    />
+                </div>
                 {/* Main Content */}
                 <main className="flex-1 p-6 md:p-8">
                     <div className="max-w-7xl mx-auto">
