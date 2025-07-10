@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Sidebar, { SidebarItem } from "../../../components/Sidebar";
+import Navbar from '../../../components/Navbar';
 import {
     BookOpen,
     BookMarked,
@@ -158,30 +159,14 @@ export default function StudentChatPage() {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Navbar superior */}
-            <nav className="bg-white border-b border-gray-200 shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        <div className="flex items-center space-x-2">
-                            <div className="w-8 h-8 bg-gradient-to-r from-universidad-azul to-blue-600 rounded-lg flex items-center justify-center">
-                                <MessageCircle size={20} className="text-white" />
-                            </div>
-                            <span className="text-xl font-bold text-gray-900">EduPlatform</span>
-                        </div>
-                        <div className="flex items-center space-x-6">
-                            <span className="text-sm font-medium text-gray-700">Buenos días, Estudiante</span>
-                            <div className="w-8 h-8 bg-gradient-to-r from-universidad-azul to-blue-600 rounded-full flex items-center justify-center">
-                                <User size={16} className="text-white" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <Navbar studentName="Estudiante" sidebarOpen={false} setSidebarOpen={() => { }} hideGreetingOnMobile />
             <div className="flex">
-                {/* Sidebar */}
+                {/* Sidebar para desktop */}
                 <div className="hidden md:block md:relative z-30 w-64 bg-white shadow-lg h-screen border-r border-gray-200">
                     <Sidebar items={sidebarItems} />
                 </div>
+                {/* Sidebar para mobile (panel deslizante) */}
+                {/* No sidebarOpen en chat, pero puedes agregar lógica si lo deseas */}
                 {/* Main Content */}
                 <main className="flex-1 flex flex-col md:flex-row p-0 md:p-8">
                     {/* Panel Izquierdo: Lista de Chats */}

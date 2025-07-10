@@ -33,6 +33,7 @@ import {
   Users
 } from 'lucide-react';
 import Sidebar, { SidebarItem } from '../../../components/Sidebar';
+import Navbar from '../../../components/Navbar';
 
 // Mock data for assignments
 const assignments = [
@@ -434,57 +435,22 @@ export default function StudentAssignmentsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Top Navigation Bar */}
-      <nav className="bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center">
-              <button
-                onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="md:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
-              >
-                {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-universidad-azul to-blue-600 rounded-lg flex items-center justify-center">
-                    <GraduationCap size={20} className="text-white" />
-                  </div>
-                  <span className="text-xl font-bold text-gray-900">EduPlatform</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-6">
-              <span className="text-sm font-medium text-gray-700">Buenos días, {studentName}</span>
-              <div className="flex items-center space-x-3">
-                <button className="p-2 rounded-full hover:bg-gray-100 transition-colors relative">
-                  <Bell size={20} className="text-gray-600" />
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
-                    3
-                  </span>
-                </button>
-                <div className="w-8 h-8 bg-gradient-to-r from-universidad-azul to-blue-600 rounded-full flex items-center justify-center">
-                  <User size={16} className="text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar studentName={studentName} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} hideGreetingOnMobile />
 
       <div className="flex">
-        {/* Sidebar */}
-        <Sidebar items={sidebarItems} />
-
-        {/* Overlay for mobile */}
+        {/* Sidebar para desktop */}
+        <div className="hidden md:block">
+          <Sidebar items={sidebarItems} />
+        </div>
+        {/* Sidebar para mobile (panel deslizante) */}
         {sidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
+          <>
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden" onClick={() => setSidebarOpen(false)} />
+            <div className="fixed top-0 left-0 z-30 w-64 h-full bg-white shadow-lg border-r border-gray-200 transition-transform duration-300 md:hidden">
+              <Sidebar items={sidebarItems} />
+            </div>
+          </>
         )}
-
         {/* Main Content */}
         <main className="flex-1 p-6 md:p-8">
           <div className="max-w-7xl mx-auto">
