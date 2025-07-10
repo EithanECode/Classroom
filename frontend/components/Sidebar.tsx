@@ -4,6 +4,7 @@ export interface SidebarItem {
     name: string;
     icon: React.ElementType;
     active: boolean;
+    href?: string;
 }
 
 interface SidebarProps {
@@ -13,19 +14,19 @@ interface SidebarProps {
 
 export default function Sidebar({ items, onItemClick }: SidebarProps) {
     return (
-        <div className="p-6">
+        <div className="bg-white border-r border-gray-200 shadow-lg h-screen w-64 p-6">
             <nav className="space-y-2">
                 {items.map((item) => (
                     <Link
                         key={item.name}
-                        href={
-                            item.name === 'Dashboard' ? '/' :
+                        href={item.href ||
+                            (item.name === 'Dashboard' ? '/' :
                                 item.name === 'Mis Cursos' ? '/dashboard-student/courses' :
                                     item.name === 'Calendario' ? '/dashboard-student/calendar' :
                                         item.name === 'Tareas' ? '/dashboard-student/assignments' :
                                             item.name === 'Calificaciones' ? '/dashboard-student/grades' :
-                                                item.name === 'Chat' ? '/chat' :
-                                                    item.name === 'Configuración' ? '/configuracion' : '#'
+                                                item.name === 'Chat' ? '/dashboard-student/chat' :
+                                                    item.name === 'Configuración' ? '/dashboard-student/configuracion' : '#')
                         }
                         className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${item.active
                             ? 'bg-gradient-to-r from-universidad-azul to-blue-600 text-white shadow-lg'

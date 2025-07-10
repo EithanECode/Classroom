@@ -226,9 +226,18 @@ export default function StudentDashboard() {
 
             <div className="flex">
                 {/* Sidebar */}
-                <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-30 w-64 bg-white shadow-lg h-screen transition-transform duration-300 ease-in-out border-r border-gray-200`}>
-                    <Sidebar items={sidebarItems} />
-                </div>
+                <Sidebar
+                    items={sidebarItems.map(item => ({
+                        ...item,
+                        href: item.name === 'Dashboard' ? '/' :
+                            item.name === 'Mis Cursos' ? '/dashboard-student/courses' :
+                                item.name === 'Calendario' ? '/dashboard-student/calendar' :
+                                    item.name === 'Tareas' ? '/dashboard-student/assignments' :
+                                        item.name === 'Calificaciones' ? '/dashboard-student/grades' :
+                                            item.name === 'Chat' ? '/dashboard-student/chat' :
+                                                item.name === 'Configuración' ? '/configuracion' : '#'
+                    }))}
+                />
 
                 {/* Overlay for mobile */}
                 {sidebarOpen && (
