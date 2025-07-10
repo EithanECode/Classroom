@@ -28,7 +28,7 @@ Hemos definido la siguiente combinación de tecnologías como la "mejor práctic
 para este proyecto:
 ●​ Frontend: Next.js (con React)
 ○​ Estilizado: Tailwind CSS
-○​ Iconos: Heroicons
+○​ Iconos: lucide-react
 ○​ Filosofía de Diseño: Estética HeroUI (diseño limpio, moderno, con espacios
 
 generosos, tipografía clara, similar a los ejemplos en https://www.heroui.com/).
@@ -139,7 +139,7 @@ Cuando se te solicite generar código o realizar una tarea, por favor:
 
 documento.
 ●​ Pila Tecnológica: Genera código que sea compatible con Next.js (React),
-Tailwind CSS, Heroicons y que asuma un backend Django/PostgreSQL.
+Tailwind CSS y que asuma un backend Django/PostgreSQL.
 ●​ Estilo HeroUI: Asegúrate de que el diseño visual siga la estética limpia y moderna
 de HeroUI.
 ●​ Colores: Utiliza la paleta de colores (Blanco, Azul Principal, Amarillo Acento) de
