@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Bell, User, LogOut, BookOpen, ClipboardList, GraduationCap, MessageCircle, Settings, Globe, Monitor, Calculator, FlaskConical, Palette, Menu, X, Calendar, Glasses as MagnifyingGlass, Filter, Clock, Users, TrendingUp, Award, Target, BookMarked, Play, CheckCircle, Star, ChevronDown, Database, Code, Camera, Music, Briefcase, Heart, Zap } from 'lucide-react';
+import Sidebar, { SidebarItem } from '../../../components/Sidebar';
 
 // Mock data for all courses
 const allCourses = [
@@ -188,7 +189,7 @@ const allCourses = [
   }
 ];
 
-const sidebarItems = [
+const sidebarItems: SidebarItem[] = [
   { name: 'Dashboard', icon: BookOpen, active: false },
   { name: 'Mis Cursos', icon: BookMarked, active: true },
   { name: 'Calendario', icon: Calendar, active: false },
@@ -227,13 +228,13 @@ export default function StudentCoursesPage() {
 
   const filteredCourses = allCourses.filter(course => {
     const matchesSearch = course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.professor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         course.description.toLowerCase().includes(searchTerm.toLowerCase());
-    
+      course.professor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.description.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesStatus = statusFilter === 'all' || course.status === statusFilter;
-    
+
     const matchesCategory = categoryFilter === 'Todas las categorías' || course.category === categoryFilter;
-    
+
     return matchesSearch && matchesStatus && matchesCategory;
   });
 
@@ -285,7 +286,7 @@ export default function StudentCoursesPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-6">
               <span className="text-sm font-medium text-gray-700">Buenos días, {studentName}</span>
               <div className="flex items-center space-x-3">
@@ -306,35 +307,11 @@ export default function StudentCoursesPage() {
 
       <div className="flex">
         {/* Sidebar */}
-        <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-30 w-64 bg-white shadow-lg h-screen transition-transform duration-300 ease-in-out border-r border-gray-200`}>
-          <div className="p-6">
-            <nav className="space-y-2">
-              {sidebarItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={
-                    item.name === 'Dashboard' ? '/' : 
-                    item.name === 'Mis Cursos' ? '/courses' : 
-                    item.name === 'Calendario' ? '/calendar' :
-                    item.name === 'Tareas' ? '/assignments' : '#'
-                  }
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                    item.active 
-                      ? 'bg-gradient-to-r from-universidad-azul to-blue-600 text-white shadow-lg' 
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                  }`}
-                >
-                  <item.icon size={20} />
-                  <span className="font-medium">{item.name}</span>
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </div>
+        <Sidebar items={sidebarItems} />
 
         {/* Overlay for mobile */}
         {sidebarOpen && (
-          <div 
+          <div
             className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
             onClick={() => setSidebarOpen(false)}
           />
@@ -442,12 +419,12 @@ export default function StudentCoursesPage() {
                         </div>
                       </div>
                     </div>
-                    
+
                     {/* Course Info */}
                     <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{course.name}</h3>
                     <p className="text-gray-600 text-sm mb-3 line-clamp-2">{course.description}</p>
                     <p className="text-sm text-gray-500 mb-4">Profesor: <span className="font-medium text-gray-700">{course.professor}</span></p>
-                    
+
                     {/* Progress Bar (only for active courses) */}
                     {course.status === 'active' && (
                       <div className="mb-4">
@@ -456,14 +433,14 @@ export default function StudentCoursesPage() {
                           <span className="font-semibold text-gray-900">{course.progress}%</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
+                          <div
                             className={`h-2 rounded-full bg-gradient-to-r ${course.color}`}
                             style={{ width: `${course.progress}%` }}
                           ></div>
                         </div>
                       </div>
                     )}
-                    
+
                     {/* Course Stats */}
                     <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                       <div className="flex items-center space-x-1">
@@ -475,10 +452,10 @@ export default function StudentCoursesPage() {
                         <span>{course.duration}</span>
                       </div>
                     </div>
-                    
+
                     {/* Last Activity */}
                     <p className="text-xs text-gray-500 mb-4">Última actividad: {course.lastActivity}</p>
-                    
+
                     {/* Action Buttons */}
                     <div className="flex items-center justify-between">
                       {/* Quick Actions */}
@@ -493,16 +470,15 @@ export default function StudentCoursesPage() {
                           <GraduationCap size={16} className="text-gray-600" />
                         </button>
                       </div>
-                      
+
                       {/* Main Action Button */}
-                      <button 
-                        className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 text-sm ${
-                          course.status === 'completed' 
-                            ? 'bg-green-100 text-green-800 hover:bg-green-200' 
+                      <button
+                        className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 text-sm ${course.status === 'completed'
+                            ? 'bg-green-100 text-green-800 hover:bg-green-200'
                             : course.status === 'upcoming'
-                            ? 'bg-blue-100 text-blue-800 hover:bg-blue-200'
-                            : 'bg-gradient-to-r from-universidad-azul to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white'
-                        }`}
+                              ? 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+                              : 'bg-gradient-to-r from-universidad-azul to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white'
+                          }`}
                       >
                         {course.status === 'completed' ? 'Revisar' : course.status === 'upcoming' ? 'Ver detalles' : 'Continuar'}
                       </button>
@@ -520,7 +496,7 @@ export default function StudentCoursesPage() {
                 </div>
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No se encontraron cursos</h3>
                 <p className="text-gray-600 mb-4">Intenta ajustar tus filtros de búsqueda</p>
-                <button 
+                <button
                   onClick={() => {
                     setSearchTerm('');
                     setStatusFilter('all');

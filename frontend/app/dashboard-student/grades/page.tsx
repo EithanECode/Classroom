@@ -34,6 +34,7 @@ import {
   Percent,
   Calendar
 } from 'lucide-react';
+import Sidebar, { SidebarItem } from '../../../components/Sidebar';
 
 // Mock data for grades
 const grades = [
@@ -212,7 +213,7 @@ const courseAverages = [
   { course: 'Administración de Empresas', average: 87, letterGrade: 'B+', color: 'from-teal-400 to-teal-600' }
 ];
 
-const sidebarItems = [
+const sidebarItems: SidebarItem[] = [
   { name: 'Dashboard', icon: BookOpen, active: false },
   { name: 'Mis Cursos', icon: BookMarked, active: false },
   { name: 'Calendario', icon: CalendarIcon, active: false },
@@ -431,33 +432,7 @@ export default function StudentGradesPage() {
 
       <div className="flex">
         {/* Sidebar */}
-        <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-30 w-64 bg-white shadow-lg h-screen transition-transform duration-300 ease-in-out border-r border-gray-200`}>
-          <div className="p-6">
-            <nav className="space-y-2">
-              {sidebarItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={
-                    item.name === 'Dashboard' ? '/' :
-                      item.name === 'Mis Cursos' ? '/courses' :
-                        item.name === 'Calendario' ? '/calendar' :
-                          item.name === 'Tareas' ? '/assignments' :
-                            item.name === 'Calificaciones' ? '/grades' :
-                              item.name === 'Chat' ? '/chat' :
-                                item.name === 'Configuración' ? '/configuracion' : '#'
-                  }
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${item.active
-                    ? 'bg-gradient-to-r from-universidad-azul to-blue-600 text-white shadow-lg'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                    }`}
-                >
-                  <item.icon size={20} />
-                  <span className="font-medium">{item.name}</span>
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </div>
+        <Sidebar items={sidebarItems} />
 
         {/* Overlay for mobile */}
         {sidebarOpen && (

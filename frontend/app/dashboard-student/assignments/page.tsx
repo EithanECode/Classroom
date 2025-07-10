@@ -32,6 +32,7 @@ import {
   TrendingUp,
   Users
 } from 'lucide-react';
+import Sidebar, { SidebarItem } from '../../../components/Sidebar';
 
 // Mock data for assignments
 const assignments = [
@@ -217,7 +218,7 @@ const assignments = [
   }
 ];
 
-const sidebarItems = [
+const sidebarItems: SidebarItem[] = [
   { name: 'Dashboard', icon: BookOpen, active: false },
   { name: 'Mis Cursos', icon: BookMarked, active: false },
   { name: 'Calendario', icon: CalendarIcon, active: false },
@@ -474,33 +475,7 @@ export default function StudentAssignmentsPage() {
 
       <div className="flex">
         {/* Sidebar */}
-        <div className={`${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative z-30 w-64 bg-white shadow-lg h-screen transition-transform duration-300 ease-in-out border-r border-gray-200`}>
-          <div className="p-6">
-            <nav className="space-y-2">
-              {sidebarItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={
-                    item.name === 'Dashboard' ? '/' :
-                      item.name === 'Mis Cursos' ? '/courses' :
-                        item.name === 'Calendario' ? '/calendar' :
-                          item.name === 'Tareas' ? '/assignments' :
-                            item.name === 'Calificaciones' ? '/grades' :
-                              item.name === 'Chat' ? '/chat' :
-                                item.name === 'Configuración' ? '/configuracion' : '#'
-                  }
-                  className={`flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 ${item.active
-                      ? 'bg-gradient-to-r from-universidad-azul to-blue-600 text-white shadow-lg'
-                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                    }`}
-                >
-                  <item.icon size={20} />
-                  <span className="font-medium">{item.name}</span>
-                </Link>
-              ))}
-            </nav>
-          </div>
-        </div>
+        <Sidebar items={sidebarItems} />
 
         {/* Overlay for mobile */}
         {sidebarOpen && (
@@ -678,8 +653,8 @@ export default function StudentAssignmentsPage() {
 
                 return (
                   <div key={assignment.id} className={`bg-white rounded-2xl shadow-sm border overflow-hidden hover:shadow-lg transition-all duration-300 ${isOverdue ? 'border-red-200 bg-red-50/30' :
-                      isDueSoon ? 'border-yellow-200 bg-yellow-50/30' :
-                        'border-gray-100'
+                    isDueSoon ? 'border-yellow-200 bg-yellow-50/30' :
+                      'border-gray-100'
                     }`}>
                     <div className="p-6">
                       {/* Assignment Header */}
