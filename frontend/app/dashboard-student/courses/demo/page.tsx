@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Navbar from "../../../../components/Navbar";
-import Sidebar from "../../../../components/Sidebar";
+import CourseSidebar from '../../../../components/CourseSidebar';
 import CourseTabs from "../../../../components/CourseTabs";
 import {
     BookOpen,
@@ -39,20 +39,15 @@ export default function CourseDemoPage() {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
             <Navbar studentName="María González" sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-            <div className="flex">
-                {/* Sidebar */}
-                <div className="hidden md:block">
-                    <Sidebar items={sidebarItems} />
-                </div>
-                {/* Sidebar mobile */}
-                <div className={`fixed inset-0 z-20 md:hidden transition-opacity duration-300 ${sidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setSidebarOpen(false)} />
-                <div className={`fixed top-0 left-0 z-30 w-64 h-full bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 ease-in-out md:hidden ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-                    <Sidebar items={sidebarItems} />
-                </div>
-                {/* Main Content */}
-                <main className="flex-1 p-4 md:p-8">
-                    {/* Encabezado del Curso */}
-                    <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6 mb-8">
+            <div className="flex flex-row min-h-[calc(100vh-4rem)]">
+                {/* Panel principal a la izquierda */}
+                <main className="flex-1 p-4 md:p-8 flex flex-col gap-8">
+                    {/* Panel principal */}
+                    <section className="flex items-center justify-center h-[40rem] bg-gradient-to-br from-universidad-azul/10 to-yellow-200/10 dark:from-blue-900/20 dark:to-yellow-400/10 rounded-xl border-2 border-dashed border-universidad-azul/30 dark:border-blue-400/30">
+                        <span className="text-xl text-universidad-azul dark:text-blue-400 font-semibold">Aquí se mostrará el video, PDF o material de la clase seleccionada</span>
+                    </section>
+                    {/* Información del curso debajo */}
+                    <section className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 p-6">
                         <h1 className="text-3xl font-bold text-universidad-azul dark:text-blue-400 mb-2">{course.name}</h1>
                         <h2 className="text-lg text-gray-700 dark:text-gray-300 mb-1">Profesores: {course.professors.join(', ')}</h2>
                         <p className="text-gray-600 dark:text-gray-400 mb-4">{course.description}</p>
@@ -67,9 +62,9 @@ export default function CourseDemoPage() {
                             </div>
                         </div>
                     </section>
-                    {/* Tabs y contenido dinámico */}
-                    <CourseTabs />
                 </main>
+                {/* Sidebar contextual a la derecha */}
+                <CourseSidebar />
             </div>
         </div>
     );

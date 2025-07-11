@@ -34,8 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({ studentName, sidebarOpen, setSidebarOpe
                         <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
                             3
                         </span>
-                    </button>
-                    <div className="w-8 h-8 bg-gradient-to-r from-universidad-azul to-blue-600 rounded-full flex items-center justify-center">
+                    </button>                    <div className="w-8 h-8 bg-gradient-to-r from-universidad-azul to-blue-600 rounded-full flex items-center justify-center">
                         <User size={16} className="text-white" />
                     </div>
                 </div>
