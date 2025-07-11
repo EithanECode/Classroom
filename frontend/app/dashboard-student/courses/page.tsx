@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Bell, User, LogOut, BookOpen, ClipboardList, GraduationCap, MessageCircle, Settings, Globe, Monitor, Calculator, FlaskConical, Palette, Menu, X, Calendar, Glasses as MagnifyingGlass, Filter, Clock, Users, TrendingUp, Award, Target, BookMarked, Play, CheckCircle, Star, ChevronDown, Database, Code, Camera, Music, Briefcase, Heart, Zap } from 'lucide-react';
+import { Bell, User, LogOut, BookOpen, ClipboardList, GraduationCap, MessageCircle, Settings, Globe, Monitor, Calculator, FlaskConical, Palette, Menu, X, Calendar, Glasses as MagnifyingGlass, Filter, Clock, Users, TrendingUp, Award, Target, BookMarked, Play, CheckCircle, Star, ChevronDown, Database, Code, Camera, Music, Briefcase, Heart, Zap, Video } from 'lucide-react';
 import Sidebar, { SidebarItem } from '../../../components/Sidebar';
 import Navbar from '../../../components/Navbar';
 
@@ -429,6 +429,9 @@ export default function StudentCoursesPage() {
                         </button>
                         <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors" title="Chat">
                           <MessageCircle size={16} className="text-gray-600" />
+                        </button>
+                        <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors" title="Clase">
+                          <Video size={16} className="text-gray-600" />
                         </button>
                         <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors" title="Calificaciones">
                           <GraduationCap size={16} className="text-gray-600" />
